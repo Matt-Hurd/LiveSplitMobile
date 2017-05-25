@@ -78,13 +78,13 @@ public class TitleComponentView extends LinearLayout implements IComponent {
                 TitleComponentState state = component.state(timer);
                 update(state);
                 state.close();
-                runHandler.postDelayed(runnable, MainActivity.INTERVAL);
+                runHandler.postDelayed(runnable, MainActivity.Companion.getINTERVAL());
             }
         };
     }
 
     public void run() {
-        runHandler.postDelayed(runnable, MainActivity.INTERVAL);
+        runHandler.postDelayed(runnable, MainActivity.Companion.getINTERVAL());
     }
 
     public void update(TitleComponentStateRef state) {

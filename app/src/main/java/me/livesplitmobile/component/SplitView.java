@@ -80,7 +80,7 @@ public class SplitView extends LinearLayout {
 
         TextView deltaTextView = (TextView)findViewById(R.id.svDelta);
         deltaTextView.setText(split.delta);
-        deltaTextView.setTextColor(Colors.colorFromString(split.colorName));
+        deltaTextView.setTextColor(Colors.INSTANCE.colorFromString(split.colorName));
         ((TextView)findViewById(R.id.svTime)).setText(split.time);
     }
 }

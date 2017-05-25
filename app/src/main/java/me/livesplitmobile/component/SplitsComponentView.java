@@ -60,14 +60,14 @@ public class SplitsComponentView extends ListView implements IComponent {
                 SplitsComponentState state = component.state(timer);
                 update(state);
                 state.close();
-                timerHandler.postDelayed(runnable, MainActivity.INTERVAL);
+                timerHandler.postDelayed(runnable, MainActivity.Companion.getINTERVAL());
             }
         };
 
     }
 
     public void run() {
-        timerHandler.postDelayed(runnable, MainActivity.INTERVAL);
+        timerHandler.postDelayed(runnable, MainActivity.Companion.getINTERVAL());
     }
 
 

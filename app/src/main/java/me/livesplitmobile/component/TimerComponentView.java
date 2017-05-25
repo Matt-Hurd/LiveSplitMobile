@@ -50,13 +50,13 @@ public class TimerComponentView extends LinearLayout implements IComponent {
                 String colorName = state.color();
                 update(t, f, colorName);
                 state.close();
-                timerHandler.postDelayed(runnable, MainActivity.INTERVAL);
+                timerHandler.postDelayed(runnable, MainActivity.Companion.getINTERVAL());
             }
         };
     }
 
     public void run() {
-        timerHandler.postDelayed(runnable, MainActivity.INTERVAL);
+        timerHandler.postDelayed(runnable, MainActivity.Companion.getINTERVAL());
     }
     public Runnable getRunnable() {
         return runnable;
@@ -66,9 +66,9 @@ public class TimerComponentView extends LinearLayout implements IComponent {
         LinearLayout ll = (LinearLayout)getChildAt(0);
         TextView time = (TextView)ll.findViewById(R.id.timeTime);
         time.setText(t);
-        time.setTextColor(Colors.colorFromString(colorName));
+        time.setTextColor(Colors.INSTANCE.colorFromString(colorName));
         TextView frac = (TextView)ll.findViewById(R.id.timeFrac);
         frac.setText(f);
-        frac.setTextColor(Colors.colorFromString(colorName));
+        frac.setTextColor(Colors.INSTANCE.colorFromString(colorName));
     }
 }
