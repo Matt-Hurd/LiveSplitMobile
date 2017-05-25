@@ -17,7 +17,7 @@ open class SplitsComponentStateRef internal constructor(internal var ptr: Long) 
         return result
     }
 
-    fun iconChange(index: Long): String {
+    fun iconChange(index: Long): String? {
         if (ptr.equals(0)) {
             throw RuntimeException()
         }

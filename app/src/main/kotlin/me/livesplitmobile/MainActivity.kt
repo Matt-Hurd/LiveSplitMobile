@@ -78,8 +78,7 @@ class MainActivity : AppCompatActivity() {
                 val s = FileInputStream(file)
                 val reader = BufferedReader(InputStreamReader(s))
                 val sb = StringBuilder()
-                var line: String? = null
-                line = reader.readLine()
+                var line = reader.readLine()
                 while (line != null) {
                     sb.append(line).append("\n")
                     line = reader.readLine()
