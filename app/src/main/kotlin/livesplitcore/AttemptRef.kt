@@ -10,13 +10,13 @@ open class AttemptRef internal constructor(var ptr: Long) {
     }
 
     fun time(): TimeRef? {
-        if (ptr.equals(0)) {
+        if (ptr.equals(0))
             throw RuntimeException()
-        }
+
         val result = TimeRef(LiveSplitCoreNative.Attempt_time(ptr))
-        if (result.ptr.equals(0)) {
-            return null
+        return when (result.ptr.equals(0)) {
+            true -> null
+            false -> result
         }
-        return result
     }
 }

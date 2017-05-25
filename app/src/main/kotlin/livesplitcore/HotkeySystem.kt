@@ -9,7 +9,7 @@ class HotkeySystem : HotkeySystemRefMut, AutoCloseable {
     }
 
     @Throws(Throwable::class)
-    protected fun finalize() {
+    private fun finalize() {
         drop()
     }
 
@@ -18,9 +18,9 @@ class HotkeySystem : HotkeySystemRefMut, AutoCloseable {
     }
 
     constructor(sharedTimer: SharedTimer) : super(0) {
-        if (sharedTimer.ptr.equals(0)) {
+        if (sharedTimer.ptr.equals(0))
             throw RuntimeException()
-        }
+
         ptr = LiveSplitCoreNative.HotkeySystem_new(sharedTimer.ptr)
         sharedTimer.ptr = 0
     }

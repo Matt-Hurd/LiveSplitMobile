@@ -2,23 +2,17 @@ package livesplitcore
 
 open class SplitsComponentRefMut internal constructor(ptr: Long) : SplitsComponentRef(ptr) {
     fun stateAsJson(timer: TimerRef): String {
-        if (ptr.equals(0)) {
+        if (ptr.equals(0) || timer.ptr.equals(0))
             throw RuntimeException()
-        }
-        if (timer.ptr.equals(0)) {
-            throw RuntimeException()
-        }
+
         val result = LiveSplitCoreNative.SplitsComponent_stateAsJson(ptr, timer.ptr)
         return result
     }
 
     fun state(timer: TimerRef): SplitsComponentState? {
-        if (ptr.equals(0)) {
+        if (ptr.equals(0) || timer.ptr.equals(0))
             throw RuntimeException()
-        }
-        if (timer.ptr.equals(0)) {
-            throw RuntimeException()
-        }
+
         val result = SplitsComponentState(
                 LiveSplitCoreNative.SplitsComponent_state(ptr, timer.ptr))
         if (result.ptr.equals(0)) {

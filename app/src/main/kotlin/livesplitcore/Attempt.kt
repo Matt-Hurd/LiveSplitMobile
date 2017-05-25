@@ -6,7 +6,7 @@ class Attempt internal constructor(ptr: Long) : AttemptRefMut(ptr), AutoCloseabl
     }
 
     @Throws(Throwable::class)
-    protected fun finalize() {
+    private fun finalize() {
         drop()
     }
 

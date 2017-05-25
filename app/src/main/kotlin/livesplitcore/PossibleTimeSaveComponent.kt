@@ -11,7 +11,6 @@ class PossibleTimeSaveComponent : PossibleTimeSaveComponentRefMut, AutoCloseable
     @Throws(Throwable::class)
     private fun finalize() {
         drop()
-
     }
 
     override fun close() {
@@ -22,5 +21,5 @@ class PossibleTimeSaveComponent : PossibleTimeSaveComponentRefMut, AutoCloseable
         ptr = LiveSplitCoreNative.PossibleTimeSaveComponent_new()
     }
 
-    internal constructor(ptr: Long) : super(ptr) {}
+    internal constructor(ptr: Long) : super(ptr)
 }
