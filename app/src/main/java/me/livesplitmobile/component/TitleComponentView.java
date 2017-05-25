@@ -1,5 +1,8 @@
 package me.livesplitmobile.component;
 
+import static android.graphics.BitmapFactory.decodeByteArray;
+import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -11,10 +14,11 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
+import android.widget.Space;
 import android.widget.TextView;
+import butterknife.Bind;
 
-import org.w3c.dom.Text;
+import butterknife.ButterKnife;
 
 import livesplitcore.Timer;
 import livesplitcore.TitleComponent;
@@ -33,6 +37,24 @@ public class TitleComponentView extends LinearLayout implements IComponent {
     Runnable runnable;
     TitleComponent component;
 
+    @Bind(R.id.tvSpacer)
+    Space tvSpacer;
+
+    @Bind(R.id.tvGameIcon)
+    ImageView tvGameIcon;
+
+    @Bind(R.id.tvGameLLayout)
+    LinearLayout tvGameLLayout;
+
+    @Bind(R.id.tvGameCategory)
+    TextView tvGameCategory;
+
+    @Bind(R.id.tvGameTitle)
+    TextView tvGameTitle;
+
+    @Bind(R.id.tvAttemptCount)
+    TextView tvAttemptCount;
+
     public TitleComponentView(Context context, AttributeSet attr, final Timer timer, Handler handler) {
         super(context, attr);
 
@@ -43,7 +65,13 @@ public class TitleComponentView extends LinearLayout implements IComponent {
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.title_view, this, true);
+    }
 
+    @Override
+    protected void onFinishInflate() {
+        super.onFinishInflate();
+
+        ButterKnife.bind(this);
         runnable = new Runnable() {
             @Override
             public void run() {
@@ -62,44 +90,41 @@ public class TitleComponentView extends LinearLayout implements IComponent {
     public void update(TitleComponentStateRef state) {
         String iconChange = state.iconChange();
         if (iconChange != null) {
-            ImageView iv =((ImageView) findViewById(R.id.tvGameIcon));
             if(iconChange.isEmpty()) {
-                iv.setImageResource(0);
-                iv.setLayoutParams(new LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 0.0f));
-                ((LinearLayout)findViewById(R.id.tvGameLLayout)).setGravity(Gravity.CENTER);
+                tvGameIcon.setImageResource(0);
+                tvGameIcon.setLayoutParams(new LayoutParams(0, MATCH_PARENT, 0.0f));
+                tvGameLLayout.setGravity(Gravity.CENTER);
 
-                LinearLayout.LayoutParams lp = new LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 0.1f);
+                LayoutParams lp = new LayoutParams(0, MATCH_PARENT, 0.1f);
                 lp.setMargins(12,0,0,0);
-                findViewById(R.id.tvSpacer).setLayoutParams(lp);
+                tvSpacer.setLayoutParams(lp);
 
-                findViewById(R.id.tvGameCategory).setLayoutParams(new LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 0.8f));
-                ((TextView)findViewById(R.id.tvGameCategory)).setGravity(Gravity.CENTER);
+                tvGameCategory.setLayoutParams(new LayoutParams(0, MATCH_PARENT, 0.8f));
+                tvGameCategory.setGravity(Gravity.CENTER);
 
             }
             else {
                 byte[] decodedString = Base64.decode(iconChange.substring(13), Base64.DEFAULT);
-                Bitmap bitMap = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                Bitmap bitMap = decodeByteArray(decodedString, 0, decodedString.length);
 
-                LinearLayout.LayoutParams ivLayoutParams = new LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 0.1f);
+                LayoutParams ivLayoutParams = new LayoutParams(0, MATCH_PARENT, 0.1f);
                 ivLayoutParams.setMargins(18, 0, 18, 0);
-                iv.setLayoutParams(ivLayoutParams);
-                iv.setImageBitmap(bitMap);
+                tvGameIcon.setLayoutParams(ivLayoutParams);
+                tvGameIcon.setImageBitmap(bitMap);
 
-                ((LinearLayout)findViewById(R.id.tvGameLLayout)).setGravity(Gravity.LEFT);
+                tvGameLLayout.setGravity(Gravity.START);
 
-                LinearLayout.LayoutParams lp = new LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 0.0f);
+                LinearLayout.LayoutParams lp = new LayoutParams(0, MATCH_PARENT, 0.0f);
                 lp.setMargins(0,0,0,0);
-                findViewById(R.id.tvSpacer).setLayoutParams(lp);
+                tvSpacer.setLayoutParams(lp);
 
-                findViewById(R.id.tvGameCategory).setLayoutParams(new LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 0.9f));
-                ((TextView)findViewById(R.id.tvGameCategory)).setGravity(Gravity.LEFT);
-
-
+                tvGameCategory.setLayoutParams(new LayoutParams(0, MATCH_PARENT, 0.9f));
+                tvGameCategory.setGravity(Gravity.START);
             }
         }
-        ((TextView) findViewById(R.id.tvGameTitle)).setText(state.game());
-        ((TextView) findViewById(R.id.tvGameCategory)).setText(state.category());
-        ((TextView) findViewById(R.id.tvAttemptCount)).setText(String.valueOf(state.attempts()));
+        tvGameTitle.setText(state.game());
+        tvGameCategory.setText(state.category());
+        tvAttemptCount.setText(String.valueOf(state.attempts()));
     }
 
     public Runnable getRunnable() {
