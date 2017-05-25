@@ -31,6 +31,10 @@ android {
             path "CMakeLists.txt"
         }
     }
+    sourceSets {
+        main.java.srcDirs += 'src/external/java'
+        main.java.srcDirs += 'src/main/kotlin'
+    }
 }
 
 dependencies {
