@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 reader.close();
                 String content = sb.toString();
-                run = Run.parse(content);
+                run = Run.Companion.parse(content);
             } catch (IOException e) {
                 Log.d("D", e.toString());
             }
