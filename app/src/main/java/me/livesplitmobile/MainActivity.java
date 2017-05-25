@@ -70,17 +70,10 @@ public class MainActivity extends AppCompatActivity {
         Context context = mainLayout.getContext();
 
         TimerComponentView tcv = new TimerComponentView(context, null, timer, runHandler);
-        tcv.setLayoutParams(new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 0
-        ));
-        tcv.setGravity(Gravity.BOTTOM);
         mainLayout.addView(tcv, 0);
         components.add(tcv);
 
         SplitsComponentView scv = new SplitsComponentView(context, null, timer, runHandler);
-        scv.setLayoutParams(new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT, 0, 1
-        ));
         scv.setVerticalScrollBarEnabled(false);
         mainLayout.addView(scv, 0);
         components.add(scv);
